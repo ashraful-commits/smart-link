@@ -79,17 +79,20 @@ function App() {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh" }}>
-      <div style={{width:"550px",position:"relative",border:"2px solid gray ",padding:"20px",borderRadius:"20px",boxShadow:"0 0 10px gray"}}>
+      <div style={{width:"550px",height:"500px",position:"relative",border:"2px solid gray ",padding:"20px",borderRadius:"20px",boxShadow:"0 0 10px gray"}}>
         <h1>Smart Link Generator</h1>
+        <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
         <input
+        style={{width:"100%"}}
           type="text"
           value={searchQuery}
           onChange={handleChange}
           placeholder="Enter artist, song, album, or Spotify URL"
         /><button onClick={handleSearch}>Search</button>
-        <div style={{position:"absolute",top:"160px",border:"2px solid gray",backgroundColor:"white"}}>
+        </div>
+        <div style={{position:"absolute",top:"185px",border:"2px solid gray",backgroundColor:"white"}}>
         {showSearchResults && (
-          <div style={{height:"100px",width:"100%",minWidth:"100%",overflow:"auto"}}>
+          <div style={{height:"100px",width:"540px",minWidth:"500px",overflow:"auto"}}>
             <ul>
               {searchResults.map(result => (
                 <li style={{cursor:"pointer"}} onClick={()=>{setSearchQuery(result.name),setShowSearchResults(false)}} key={result.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -105,8 +108,8 @@ function App() {
         {smartLink && (
           <div>
             <p>Generated Smart Link:</p>
-            <div>
-              <a href={smartLink} target="_blank" rel="noopener noreferrer">
+            <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
+              <a style={{width:"70%"}} href={smartLink} target="_blank" rel="noopener noreferrer">
                 {smartLink}
               </a>
               <button onClick={handleCopyLink}>Copy Link</button>
