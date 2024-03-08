@@ -79,8 +79,8 @@ function App() {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh" }}>
-      <div style={{width:"500px",position:"relative"}}>
-        <h1>Smart Link Setup</h1>
+      <div style={{width:"550px",position:"relative",border:"2px solid gray ",padding:"20px",borderRadius:"20px",boxShadow:"0 0 10px gray"}}>
+        <h1>Smart Link Generator</h1>
         <input
           type="text"
           value={searchQuery}
