@@ -108,8 +108,8 @@ function App() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-gradient-to-b from-green-500 to-orange-400">
-      <div className="w-[700px] bg-green-500 overflow-hidden h-[700px] border shadow-md rounded-2xl p-5" >
-        <h1 className="text-4xl font-bold my-3 text-center">Smart Link Generator</h1>
+      <div className="w-[700px] bg-green-500 overflow-hidden h-[700px] rounded-tl-none rounded-tr-none rounded-2xl p-5" >
+        <h1 className="text-4xl font-bold my-5 text-center">Smart Link Generator</h1>
         <div className="w-full flex justify-between h-12 relative">
           <input
           className="w-[85%] h-full px-3 focus:border-none focus:outline-none"
