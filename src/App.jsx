@@ -8,7 +8,7 @@ function App() {
   const [showLink, setShowLink] = useState(false);
   const clientId = "d7674ea1f7094ec3a86bf71ac0ada810";
   const clientSecret = "1c6afec48a294eee93cd25b1f097570e";
-  const youtubeApi = "AIzaSyDRDy4dO_piC3tqHHJEo_cU4EMXii-N8zk";
+  const youtubeApi = "AIzaSyD6H8DQW8VxFVa2v0Ukuk2gevqm5bSeZkg";
 
   const getToken = async () => {
     const response = await fetch('https://accounts.spotify.com/api/token', {
