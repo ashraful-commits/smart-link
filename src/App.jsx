@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [smartLink, setSmartLink] = useState('');
+  const [smartLink, setSmartLink] = useState({});
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showLink, setShowLink] = useState(false);
@@ -48,7 +48,7 @@ function App() {
         const dataSpotify = await responseSpotify.json();
 
         // Extract the Spotify link for the first track
-        if (dataSpotify.tracks.items.length > 0) {
+        if (dataSpotify.tracks?.items?.length > 0) {
           spotifyLink = dataSpotify.tracks.items[0].external_urls.spotify;
           setSearchResults(dataSpotify.tracks.items); // Update search results state
         }
@@ -58,13 +58,13 @@ function App() {
         const dataYoutube = await responseYoutube.json();
 
         // Extract YouTube link
-        if (dataYoutube.items.length > 0) {
+        if (dataYoutube?.items?.length > 0) {
           youtubeLink = `https://www.youtube.com/watch?v=${dataYoutube.items[0].id.videoId}`;
         }
       }
 
       // Generate the smart link
-      const generatedSmartLink = { spotify: spotifyLink, youtube: youtubeLink };
+      const generatedSmartLink = { spotify: spotifyLink?spotifyLink:"", youtube: youtubeLink?youtubeLink:"" };
       setSmartLink(generatedSmartLink);
       setShowSearchResults(false); // Hide search results after clicking search button
     } catch (error) {
@@ -96,63 +96,63 @@ function App() {
         setSearchResults(dataSpotify.tracks.items); // Update search results state
         setShowSearchResults(true); // Show search results when typing
       }
-
       // Perform a search on YouTube
       const responseYoutube = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${youtubeApi}&part=snippet&q=${value}&type=video&maxResults=1`);
       const dataYoutube = await responseYoutube.json();
-
-      // Extract YouTube link
       const youtubeLink = dataYoutube.items.length > 0 ? `https://www.youtube.com/watch?v=${dataYoutube.items[0].id.videoId}` : '';
       setSmartLink({ spotify: '', youtube: youtubeLink });
     } else {
-      setShowSearchResults(false); // Hide search results when input is empty
+      setShowSearchResults(false); 
     }
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh", backgroundImage: "linear-gradient(to top, green, gray)" }}>
-      <div style={{ width: "700px", backgroundColor: "white", height: "500px", position: "relative", border: "2px solid gray ", padding: "20px", borderRadius: "20px", boxShadow: "0 0 10px gray" }}>
-        <h1>Smart Link Generator</h1>
-        <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+    <div className="w-screen h-screen flex justify-center items-center bg-gradient-to-b from-green-500 to-orange-400">
+      <div className="w-[700px] bg-green-500 overflow-hidden h-[700px] border shadow-md rounded-2xl p-5" >
+        <h1 className="text-4xl font-bold my-3 text-center">Smart Link Generator</h1>
+        <div className="w-full flex justify-between h-12 relative">
           <input
-            style={{ width: "100%" }}
+          className="w-[85%] h-full px-3 focus:border-none focus:outline-none"
             type="text"
             value={searchQuery}
             onChange={handleChange}
             placeholder="Enter artist, song, album, or Spotify URL"
-          /><button onClick={handleSearch}>Search</button>
-        </div>
-        <div style={{ position: "absolute", top: "185px", border: "2px solid gray", backgroundColor: "white" }}>
+          />
+          <button className="w-[15%] border hover:bg-gray-700 hover:text-white transition-all duration-500 ease-in-out bg-white text-gray-700 h-full" onClick={handleSearch}>Search</button>
+       
           {showSearchResults && (
-            <div style={{ height: "300px", width: "695px", minWidth: "500px", overflow: "auto" }}>
-              <ul>
+          <div className="absolute overflow-y-auto top-[48px] shadow-md bg-white w-full max-h-[500px] border-2 p-3" >
+            <div className="w-full h-full overflow-hidden">
+              <ul className="flex flex-col gap-y-4">
                 {searchResults.map(result => (
-                  <li style={{ cursor: "pointer" }} onClick={() => { setSearchQuery(result.name); setShowSearchResults(false) }} key={result.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <li className=" border-b py-2" onClick={() => { setSearchQuery(result.name); setShowSearchResults(false) }} key={result.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     {result.album && (
-                      <img src={result.album.images[0].url} alt={result.name} width="30" height="30" />
+                      <img className="rounded-md" src={result.album.images[0].url} alt={result.name} width="30" height="30" />
                     )}
                     <p>{result.name}</p>
                   </li>
                 ))}
               </ul>
             </div>
+        </div>
           )}
         </div>
+       
 
         {showLink && (
-          <div>
-            <p>Generated Smart Links:</p>
+          <div className=" p-4">
+            <p className="py-1 font-bold text-lg text-white border-b my-3">Generated Smart Links:</p>
             {smartLink.spotify && (
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <a style={{ width: "70%" }} href={smartLink.spotify} target="_blank" rel="noopener noreferrer">
+              <div className="flex shadow-2xl pl-3 border bg-white items-center justify-between w-full mb-3 h-12">
+                <a className="inline-block truncate"  href={smartLink.spotify} target="_blank" rel="noopener noreferrer">
                   Spotify: {smartLink.spotify}
                 </a>
-                <button onClick={() => handleCopyLink(smartLink.spotify)}>Copy Spotify Link</button>
+                <button className="bg-green-500 px-2 hover:text-white font-bold h-full flex justify-center items-center" onClick={() => handleCopyLink(smartLink.spotify)}>Copy</button>
               </div>
             )}
             {smartLink.youtube && (
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <a style={{ width: "70%" }} href={smartLink.youtube} target="_blank" rel="noopener noreferrer">
+              <div className="flex shadow-2xl pl-3 border bg-white items-center justify-between w-full mb-3 h-12">
+                <a className="inline-block truncate" href={smartLink.youtube} target="_blank" rel="noopener noreferrer">
                   YouTube: {smartLink.youtube}
                 </a>
                 <button onClick={() => handleCopyLink(smartLink.youtube)}>Copy YouTube Link</button>
