@@ -5,6 +5,7 @@ function App() {
   const [smartLink, setSmartLink] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [showLink, setShowLink] = useState(false);
   const clientId = "d7674ea1f7094ec3a86bf71ac0ada810";
   const clientSecret = "1c6afec48a294eee93cd25b1f097570e";
 
@@ -21,7 +22,7 @@ function App() {
     });
 
     const data = await response.json();
-
+    setShowLink(true)
     return data.access_token;
   };
 
@@ -70,16 +71,28 @@ function App() {
     const { value } = e.target;
     setSearchQuery(value);
     if (value.trim() !== '') {
-      await handleSearch(value);
-      setShowSearchResults(true); // Show search results when typing
+      const accessToken = await getToken(); // Get access token
+      // Perform a search on Spotify
+      const response = await fetch(`https://api.spotify.com/v1/search?q=${value}&type=track`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const data = await response.json();
+  
+      // Extract the Spotify link for the first track
+      if (data.tracks.items.length > 0) {
+        setSearchResults(data.tracks.items); // Update search results state
+        setShowSearchResults(true); // Show search results when typing
+      }
     } else {
       setShowSearchResults(false); // Hide search results when input is empty
     }
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh" }}>
-      <div style={{width:"550px",height:"500px",position:"relative",border:"2px solid gray ",padding:"20px",borderRadius:"20px",boxShadow:"0 0 10px gray"}}>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh",backgroundImage:"linear-gradient(to top, green, gray)" }}>
+      <div style={{width:"550px",backgroundColor:"white",height:"500px",position:"relative",border:"2px solid gray ",padding:"20px",borderRadius:"20px",boxShadow:"0 0 10px gray"}}>
         <h1>Smart Link Generator</h1>
         <div style={{width:"100%",display:"flex",justifyContent:"center"}}>
         <input
@@ -105,7 +118,7 @@ function App() {
         )}
         </div>
         
-        {smartLink && (
+        {smartLink &&showLink && (
           <div>
             <p>Generated Smart Link:</p>
             <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
