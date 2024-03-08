@@ -124,7 +124,7 @@ function App() {
         </div>
         <div style={{ position: "absolute", top: "185px", border: "2px solid gray", backgroundColor: "white" }}>
           {showSearchResults && (
-            <div style={{ height: "300px", width: "540px", minWidth: "500px", overflow: "auto" }}>
+            <div style={{ height: "300px", width: "695px", minWidth: "500px", overflow: "auto" }}>
               <ul>
                 {searchResults.map(result => (
                   <li style={{ cursor: "pointer" }} onClick={() => { setSearchQuery(result.name); setShowSearchResults(false) }} key={result.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
