@@ -99,8 +99,8 @@ function App() {
       // Perform a search on YouTube
       const responseYoutube = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${youtubeApi}&part=snippet&q=${value}&type=video&maxResults=1`);
       const dataYoutube = await responseYoutube.json();
-      const youtubeLink = dataYoutube.items.length > 0 ? `https://www.youtube.com/watch?v=${dataYoutube.items[0].id.videoId}` : '';
-      setSmartLink({ spotify: '', youtube: youtubeLink });
+      setSearchResults([...searchResults,...dataYoutube])
+      
     } else {
       setShowSearchResults(false); 
     }
