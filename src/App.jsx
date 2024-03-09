@@ -145,7 +145,7 @@ function App() {
             {smartLink.spotify && (
               <div className="flex items-center justify-between w-full h-12 pl-3 mb-3 bg-white border shadow-2xl">
                 <a className="inline-block truncate"  href={smartLink.spotify} target="_blank" rel="noopener noreferrer">
-                  Spotify: {smartLink.spotify}
+                 <span className="px-4 py-2 font-bold text-green-500"> Spotify: </span>{smartLink.spotify}
                 </a>
                 <button className="flex items-center justify-center h-full px-2 font-bold bg-green-500 hover:text-white" onClick={() => handleCopyLink(smartLink.spotify)}>Copy</button>
               </div>
@@ -153,7 +153,7 @@ function App() {
             {smartLink.youtube && (
               <div className="flex items-center justify-between w-full h-12 pl-3 mb-3 bg-white border shadow-2xl">
                 <a className="inline-block truncate" href={smartLink.youtube} target="_blank" rel="noopener noreferrer">
-                  YouTube: {smartLink.youtube}
+                <span className="px-4 py-2 font-bold text-red-500">YouTube:</span> {smartLink.youtube}
                 </a>
                 <button className="flex items-center justify-center h-full px-2 font-bold bg-red-500 hover:text-white" onClick={() => handleCopyLink(smartLink.youtube)}>Copy</button>
               </div>
