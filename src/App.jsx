@@ -107,10 +107,10 @@ function App() {
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-gradient-to-b from-green-500 to-orange-400">
+    <div className="flex items-center justify-center w-screen h-screen bg-gradient-to-b from-green-500 to-orange-400">
       <div className="w-[700px] bg-green-500 overflow-hidden h-[700px] rounded-tl-none rounded-tr-none rounded-2xl p-5" >
-        <h1 className="text-4xl font-bold my-5 text-center">Smart Link Generator</h1>
-        <div className="w-full flex justify-between h-12 relative">
+        <h1 className="my-5 text-4xl font-bold text-center">Smart Link Generator</h1>
+        <div className="relative flex justify-between w-full h-12">
           <input
           className="w-[85%] h-full px-3 focus:border-none focus:outline-none"
             type="text"
@@ -125,7 +125,7 @@ function App() {
             <div className="w-full h-full overflow-hidden">
               <ul className="flex flex-col gap-y-4">
                 {searchResults.map(result => (
-                  <li className=" border-b py-2" onClick={() => { setSearchQuery(result.name); setShowSearchResults(false) }} key={result.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <li className="py-2 border-b " onClick={() => { setSearchQuery(result.name); setShowSearchResults(false) }} key={result.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     {result.album && (
                       <img className="rounded-md" src={result.album.images[0].url} alt={result.name} width="30" height="30" />
                     )}
@@ -140,22 +140,22 @@ function App() {
        
 
         {showLink && (
-          <div className=" p-4">
-            <p className="py-1 font-bold text-lg text-white border-b my-3">Generated Smart Links:</p>
+          <div className="p-4 ">
+            <p className="py-1 my-3 text-lg font-bold text-white border-b">Generated Smart Links:</p>
             {smartLink.spotify && (
-              <div className="flex shadow-2xl pl-3 border bg-white items-center justify-between w-full mb-3 h-12">
+              <div className="flex items-center justify-between w-full h-12 pl-3 mb-3 bg-white border shadow-2xl">
                 <a className="inline-block truncate"  href={smartLink.spotify} target="_blank" rel="noopener noreferrer">
                   Spotify: {smartLink.spotify}
                 </a>
-                <button className="bg-green-500 px-2 hover:text-white font-bold h-full flex justify-center items-center" onClick={() => handleCopyLink(smartLink.spotify)}>Copy</button>
+                <button className="flex items-center justify-center h-full px-2 font-bold bg-green-500 hover:text-white" onClick={() => handleCopyLink(smartLink.spotify)}>Copy</button>
               </div>
             )}
             {smartLink.youtube && (
-              <div className="flex shadow-2xl pl-3 border bg-white items-center justify-between w-full mb-3 h-12">
+              <div className="flex items-center justify-between w-full h-12 pl-3 mb-3 bg-white border shadow-2xl">
                 <a className="inline-block truncate" href={smartLink.youtube} target="_blank" rel="noopener noreferrer">
                   YouTube: {smartLink.youtube}
                 </a>
-                <button onClick={() => handleCopyLink(smartLink.youtube)}>Copy YouTube Link</button>
+                <button className="flex items-center justify-center h-full px-2 font-bold bg-youtube-500 hover:text-white" onClick={() => handleCopyLink(smartLink.youtube)}>Copy Link</button>
               </div>
             )}
           </div>
