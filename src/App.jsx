@@ -99,7 +99,7 @@ function App() {
       // Perform a search on YouTube
       const responseYoutube = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${youtubeApi}&part=snippet&q=${value}&type=video&maxResults=1`);
       const dataYoutube = await responseYoutube.json();
-      setSearchResults([...searchResults,...dataYoutube])
+     console.log(dataYoutube)
       
     } else {
       setShowSearchResults(false); 
