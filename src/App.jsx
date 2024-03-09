@@ -155,7 +155,7 @@ function App() {
                 <a className="inline-block truncate" href={smartLink.youtube} target="_blank" rel="noopener noreferrer">
                   YouTube: {smartLink.youtube}
                 </a>
-                <button className="flex items-center justify-center h-full px-2 font-bold bg-youtube-500 hover:text-white" onClick={() => handleCopyLink(smartLink.youtube)}>Copy Link</button>
+                <button className="flex items-center justify-center h-full px-2 font-bold bg-red-500 hover:text-white" onClick={() => handleCopyLink(smartLink.youtube)}>Copy</button>
               </div>
             )}
           </div>
